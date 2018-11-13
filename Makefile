@@ -7,15 +7,15 @@ tests ?= src/popcnt.c src/popcnt_u4.c src/popcnt_a4.c
 .DEFAULT_GOAL := default
 
 # target architecture specifics
-ARCH ?= BLEND
-CFLAGS_BLEND = -msse4.2 -mpopcnt
+ARCH ?= blend
+CFLAGS_blend = -msse4.2 -mpopcnt
 CFLAGS_NATIVE = -march=native
 
 # optimization level
-OPTLEVEL ?= BASE
-CFLAGS_NOOPT = -O0 $(CFLAGS_$(ARCH))
-CFLAGS_BASE = -O2 $(CFLAGS_$(ARCH))
-CFLAGS_FAST = -Ofast $(CFLAGS_$(ARCH))
+OPTLEVEL ?= base
+CFLAGS_noopt = -O0 $(CFLAGS_$(ARCH))
+CFLAGS_base = -O2 $(CFLAGS_$(ARCH))
+CFLAGS_fast = -Ofast $(CFLAGS_$(ARCH))
 CFLAGS_OPT := $(CFLAGS_$(OPTLEVEL))
 
 # general flags
@@ -64,8 +64,8 @@ clean:
 clobber: clean
 	rm -rf $(OUTDIR) $(exes_c)
 
-nuke:
-	rm -rf $(OBJDIR)
+nuke: clobber
+	rm -rf $(OBJDIR) *.exe
 
 # debugging
 print-%  : ; @echo $* = $($*)
