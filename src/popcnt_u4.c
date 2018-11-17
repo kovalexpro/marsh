@@ -2,42 +2,58 @@
 #include <stdint.h>
 #include "marsh.h"
 
-const char* test_name = "popcnt";
+extern struct marsh_test popcnt_u4_test;
 
-#define TEST_N  (MARSH_L2C_SIZE / sizeof(uint64_t))
-static uint64_t buffer[TEST_N];
+const static uint32_t popcnt_u4_golden = 0x1f018;
 
-#define GOLDEN  0x000f7fd7
-static int result;
+static uint32_t result;
 
-uint64_t run()
+/// Runs test.
+static uint32_t popcnt_u4_run(void)
 {
+    uint64_t *buffer = (uint64_t*)popcnt_u4_test.heap;
     uint64_t cnt0, cnt1, cnt2, cnt3;
     cnt0 = cnt1 = cnt2 = cnt3 = 0;
-    for(size_t i = 0; i < TEST_N; i+=4) {
+    for(size_t i = 0; i < popcnt_u4_test.iterations; i+=4) {
         cnt0 += __builtin_popcountll(buffer[i+0]);
         cnt1 += __builtin_popcountll(buffer[i+1]);
         cnt2 += __builtin_popcountll(buffer[i+2]);
         cnt3 += __builtin_popcountll(buffer[i+3]);
     }
-    result = cnt0 + cnt1 + cnt2 + cnt3;
+    uint64_t cnt = cnt0 + cnt1 + cnt2 + cnt3;
+    result = (uint32_t)(cnt & 0xfffffff) ^ (uint32_t)(cnt >> 32);
     return result;
 }
 
-int init()
+
+/// Prepares test.
+static uint32_t popcnt_u4_init(void)
 {
-    marsh_random_data(buffer, MARSH_L2C_SIZE);
+    result = 0;
+    popcnt_u4_test.heap = marsh_alloc(
+        popcnt_u4_test.iterations * sizeof(uint64_t));
+    uint64_t *buffer = (uint64_t*)popcnt_u4_test.heap;
+    marsh_random_data(buffer, popcnt_u4_test.iterations);
 }
 
-int verify()
+
+/// Validates test's result.
+static uint32_t popcnt_u4_verify(void)
 {
-    return result == GOLDEN ? 0 : 1;
+    return result == popcnt_u4_golden ? 0 : 1;
 }
 
-void report(double elapsed, uint64_t retries)
+
+/// Reports test's results.
+static void popcnt_u4_report(double elapsed, uint32_t retries)
 {
-    if (result != GOLDEN)
-        printf("Result: %8.8x Expected: %8.8x\n", result, GOLDEN);
-    printf("bandwidth: %.3f GB/s\n",
-        (MARSH_L2C_SIZE * retries / elapsed / 1e9));
+    if (result != popcnt_u4_golden)
+        printf("Result: %8.8x Expected: %8.8x\n", result, popcnt_u4_golden);
+    uint32_t n = popcnt_u4_test.iterations;
+    printf("iterations=%d, data=%.3fKB, bandwidth: %.3f GB/s\n",
+        n, n * sizeof(uint64_t) / 1e3,
+        n * sizeof(uint64_t) * retries / elapsed / 1e9);
 }
+
+MARSH_TEST(popcnt_u4, popcnt_u4_run, popcnt_u4_init,
+    popcnt_u4_verify, popcnt_u4_report);

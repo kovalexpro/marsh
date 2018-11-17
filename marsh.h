@@ -7,44 +7,53 @@
 enum {
     MARSH_WARMUP_RETRY = 1000,
     MARSH_RETRY = 1000000,
+    MARSH_HEAP_SIZE = 128 * 1024 * 1024,
     MARSH_L2C_SIZE = 256 * 1024,
 };
 
-static inline void marsh_random_data(void* p, uint32_t size)
-{
-    uint32_t* pdw = (uint32_t*)p;
+#ifndef MARSH_ITERATIONS
+#define MARSH_ITERATIONS (MARSH_L2C_SIZE / sizeof(uint64_t))
+#endif
 
-    srand(size);
-    for (int i = 0; i < size / sizeof(uint32_t); i++) {
-        *pdw++ = rand();
-    }
+/// Current test.
+extern struct marsh_test *test;
 
-    uint8_t* pb = (uint8_t*)pdw;
-    uint32_t rdw = rand();
-    for (int i = 0; i < (size & (sizeof(uint32_t) - 1)); i++) {
-        *pb++ = rdw & 0xff;
-        rdw = rdw >> 8;
-    }
-
-}
-
+/// Timing value's type.
 typedef clock_t marsh_time_t;
 
+/// Test desriptor.
+struct marsh_test {
+    uint32_t iterations;
+    const char* name;
+    void* heap;
+    void* private;
+    uint32_t (*run)(void);
+    uint32_t (*init)(void);
+    uint32_t (*verify)(void);
+    void (*report)(double elapsed, uint32_t retries);
+};
 
-static inline marsh_time_t marsh_time()
-{
-    return (marsh_time_t)clock();
-}
+/// Macro for creating test descriptor structure.
+#define MARSH_TEST(test_name, test_run, test_init, test_verify, test_report) \
+    struct marsh_test test_name##_test = { \
+        .iterations = MARSH_ITERATIONS, \
+        .name = #test_name, \
+        .heap = 0, \
+        .private = 0, \
+        .run = test_run, \
+        .init = test_init, \
+        .verify = test_verify, \
+        .report = test_report \
+    }; \
+    struct marsh_test *test = &test_name##_test;
 
 
-static inline double marsh_elapsed(marsh_time_t start, marsh_time_t stop)
-{
-    return (double)(stop - start) / CLOCKS_PER_SEC;
-}
+void* marsh_alloc(uint32_t size);
 
+void marsh_free(void* p);
 
-extern const char* test_name;
-extern uint64_t run();
-extern int init();
-extern int verify();
-extern void report(double elapsed, uint64_t retries);
+void marsh_random_data(void* p, uint32_t size);
+
+marsh_time_t marsh_time();
+
+double marsh_elapsed(marsh_time_t start, marsh_time_t stop);
