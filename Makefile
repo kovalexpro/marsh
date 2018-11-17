@@ -70,10 +70,14 @@ clean:
 	rm -rf $(objs_c) $(deps_c) $(exes_c)
 
 clobber: clean
-	rm -rf $(OUTDIR) *.exe
+	rm -rf $(OUTDIR) *.$(ARCH).$(OPTLEVEL).exe
 
 nuke:
 	rm -rf obj *.exe
+	git clean -fdn
+
+run: $(exes_c)
+	$(addsuffix ;, $(addprefix ./, $(notdir $(^:.exe=.$(ARCH).$(OPTLEVEL).exe))))
 
 # debugging
 print-%  : ; @echo $* = $($*)
