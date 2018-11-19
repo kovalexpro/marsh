@@ -65,3 +65,33 @@ double marsh_elapsed(marsh_time_t start, marsh_time_t stop)
 {
     return (double)(stop - start) / CLOCKS_PER_SEC;
 }
+
+
+/// Standard report routine.
+void marsh_report(struct marsh_test *test, uint32_t errors,
+    double elapsed, uint32_t retries)
+{
+    uint32_t n = test->iterations;
+    printf("errors=%u iterations=%d, data=%.3fKB, npi=%.3f bandwidth: %.3f GB/s\n",
+        errors, n, n * sizeof(uint64_t) / 1e3,
+        elapsed * 1e9 / retries / n,
+        n * sizeof(uint64_t) * retries / elapsed / 1e9);
+}
+
+
+/// Allocates and initializes vector.
+void marsh_get_x(struct marsh_test *test)
+{
+    test->heap = marsh_alloc(test->iterations * sizeof(uint64_t));
+    marsh_random_data(test->heap, test->iterations);
+}
+
+
+/// Allocates and initializes 2 vectors
+void marsh_get_xy(struct marsh_test *test)
+{
+    uint32_t n = test->iterations;
+    uint32_t size = 2 * n * sizeof(uint64_t);
+    test->heap = marsh_alloc(size);
+    marsh_random_data(test->heap, size);
+}

@@ -1,6 +1,7 @@
 
 #pragma once
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -57,3 +58,10 @@ void marsh_random_data(void* p, uint32_t size);
 marsh_time_t marsh_time();
 
 double marsh_elapsed(marsh_time_t start, marsh_time_t stop);
+
+void marsh_report(struct marsh_test *test, uint32_t errors,
+    double elapsed, uint32_t retries);
+
+void marsh_get_x(struct marsh_test *test);
+
+void marsh_get_xy(struct marsh_test *test);

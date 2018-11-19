@@ -30,10 +30,7 @@ static uint32_t popcnt_u4_run(void)
 static uint32_t popcnt_u4_init(void)
 {
     result = 0;
-    popcnt_u4_test.heap = marsh_alloc(
-        popcnt_u4_test.iterations * sizeof(uint64_t));
-    uint64_t *buffer = (uint64_t*)popcnt_u4_test.heap;
-    marsh_random_data(buffer, popcnt_u4_test.iterations);
+    marsh_get_x(&popcnt_u4_test);
 }
 
 
@@ -47,12 +44,8 @@ static uint32_t popcnt_u4_verify(void)
 /// Reports test's results.
 static void popcnt_u4_report(double elapsed, uint32_t retries)
 {
-    if (result != popcnt_u4_golden)
-        printf("Result: %8.8x Expected: %8.8x\n", result, popcnt_u4_golden);
-    uint32_t n = popcnt_u4_test.iterations;
-    printf("iterations=%d, data=%.3fKB, bandwidth: %.3f GB/s\n",
-        n, n * sizeof(uint64_t) / 1e3,
-        n * sizeof(uint64_t) * retries / elapsed / 1e9);
+    uint32_t errors = result == popcnt_u4_golden ? 0 : 1;
+    marsh_report(&popcnt_u4_test, errors, elapsed, retries);
 }
 
 MARSH_TEST(popcnt_u4, popcnt_u4_run, popcnt_u4_init,

@@ -1,6 +1,8 @@
 
 # default targets (tests)
-tests ?= src/popcnt.c src/popcnt_u4.c src/popcnt_a4.c
+tests ?= src/popcnt.c src/popcnt_u4.c src/popcnt_a4.c \
+	src/stream_set.c src/stream_setz.c src/stream_copy.c \
+	src/pchase.c
 
 # default goal
 .PHONY: default
@@ -27,6 +29,7 @@ CFLAGS += -g
 # toolchain
 CC = gcc
 LD = gcc
+OD = objdump
 
 # intermediates
 OBJDIR ?= obj
@@ -63,6 +66,7 @@ $(objs_c): $(OUTDIR)/%.o : %.c $(OUTDIR)/%.d $(MORE_DEPS) | $(OUTDIR)
 $(exes_c): $(OUTDIR)/%.exe : $(OUTDIR)/%.o $(MORE_DEPS) | $(OUTDIR)
 	$(LD) $(LDFLAGS) -o $@ $(filter %.o,$^)
 	cp -f $@ $(notdir $(@:.exe=.$(ARCH).$(OPTLEVEL).exe))
+	$(OD) -d $@ >  $@.listing
 
 default: $(exes_c)
 
