@@ -2,7 +2,7 @@
 # default targets (tests)
 tests ?= src/popcnt.c src/popcnt_u4.c src/popcnt_a4.c \
 	src/stream_set.c src/stream_setz.c src/stream_copy.c \
-	src/pchase.c
+	src/pchase.c src/sysbench_cpu.c
 
 # default goal
 .PHONY: default
@@ -25,6 +25,9 @@ INCL_DIR = .
 CFLAGS += -MT $@ -MMD -MP -MF $(OUTDIR)/$*.Td
 CFLAGS += $(addprefix -I, $(INCL_DIR))
 CFLAGS += -g
+
+# linker flags
+LDFLAGS += -lm
 
 # toolchain
 CC = gcc
@@ -64,7 +67,7 @@ $(objs_c): $(OUTDIR)/%.o : %.c $(OUTDIR)/%.d $(MORE_DEPS) | $(OUTDIR)
 	@mv $(OUTDIR)/$*.Td $(OUTDIR)/$*.d && touch $@
 
 $(exes_c): $(OUTDIR)/%.exe : $(OUTDIR)/%.o $(MORE_DEPS) | $(OUTDIR)
-	$(LD) $(LDFLAGS) -o $@ $(filter %.o,$^)
+	$(LD) -o $@ $(filter %.o,$^) $(LDFLAGS)
 	cp -f $@ $(notdir $(@:.exe=.$(ARCH).$(OPTLEVEL).exe))
 	$(OD) -d $@ >  $@.listing
 
