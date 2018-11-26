@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define join(F,D) F##_##D
+#define template(F,D) join(F,D)
+
 enum {
     MARSH_WARMUP_RETRY = 1000,
     MARSH_RETRY = 1000000,
