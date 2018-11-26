@@ -52,10 +52,10 @@ static uint32_t sysbench_cpu_verify(void)
 static void sysbench_cpu_report(double elapsed, uint32_t retries)
 {
     uint32_t errors = result == sysbench_cpu_golden ? 0 : 1;
-    uint32_t n = test->iterations;
-    printf("errors=%u iterations=%d, npi=%.3f bandwidth: %.3f runs/s\n",
-        errors, n, elapsed * 1e9 / retries / n,
-        result * retries / elapsed );
+    uint32_t n = sysbench_cpu_test.iterations;
+    printf("%s: errors=%u iterations=%d, npi=%.3f bandwidth: %.3f Mruns/s\n",
+        sysbench_cpu_test.name, errors, n, elapsed * 1e9 / retries / n,
+        result * retries / elapsed / 1e6 );
 }
 
 MARSH_TEST(sysbench_cpu, sysbench_cpu_run, sysbench_cpu_init,
