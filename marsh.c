@@ -10,6 +10,12 @@ void* marsh_alloc(uint32_t size)
 {
     uint8_t *p;
 
+    // check alignment (should be 2**n)
+    const uintptr_t a = (uintptr_t)MARSH_ALLOC_ALIGN;
+    const uintptr_t m = ~(a - 1);
+    if ((uintptr_t)__marsh_heap_p & m)
+        __marsh_heap_p = (uint8_t*)(((uintptr_t)__marsh_heap_p & m) + a);
+
     // first, try static allocation
     uint32_t used = __marsh_heap_p - __marsh_heap;
     uint32_t left = MARSH_HEAP_SIZE - used;
@@ -72,27 +78,44 @@ void marsh_report(struct marsh_test *test, uint32_t errors,
     double elapsed, uint32_t retries)
 {
     uint32_t n = test->iterations;
-    printf("%s: errors=%u iterations=%d, data=%.3fKB,"
-           " npi=%.3f bandwidth: %.3f GB/s\n",
-        test->name, errors, n, n * sizeof(uint64_t) / 1e3,
+    printf("%s: errors=%u iterations=%d, data[r/w]=%.3f/%.3f KB,"
+           " npi=%.3f bandwidth[r/w]: %.3f/%.3f GB/s\n",
+        test->name, errors, n,
+        test->read_size / 1e3,
+        test->write_size / 1e3,
         elapsed * 1e9 / retries / n,
-        n * sizeof(uint64_t) * retries / elapsed / 1e9);
+        test->read_size * retries / elapsed / 1e9,
+        test->write_size * retries / elapsed / 1e9
+    );
+}
+
+
+/// Allocates and initializes resulting vector.
+void marsh_get_r(struct marsh_test *test, uint32_t elem_size)
+{
+    test->heap = marsh_alloc(test->iterations * elem_size);
+    marsh_random_data(test->heap, test->iterations);
+    test->write_size += test->iterations * elem_size;
 }
 
 
 /// Allocates and initializes vector.
-void marsh_get_x(struct marsh_test *test)
+void marsh_get_x(struct marsh_test *test, uint32_t elem_size)
 {
-    test->heap = marsh_alloc(test->iterations * sizeof(uint64_t));
+    test->heap = marsh_alloc(test->iterations * elem_size);
     marsh_random_data(test->heap, test->iterations);
+    test->read_size += test->iterations * elem_size;
 }
 
 
 /// Allocates and initializes 2 vectors
-void marsh_get_xy(struct marsh_test *test)
+void marsh_get_xy(struct marsh_test *test, uint32_t elem_size)
 {
-    uint32_t n = test->iterations;
-    uint32_t size = 2 * n * sizeof(uint64_t);
-    test->heap = marsh_alloc(size);
-    marsh_random_data(test->heap, size);
+    uint32_t vsize = test->iterations * elem_size;
+    test->heap = marsh_alloc(vsize);
+    void* misalign = marsh_alloc(MARSH_ALLOC_STRIDE * elem_size);
+    void* second = marsh_alloc(vsize);
+    marsh_random_data(test->heap, vsize);
+    marsh_random_data(second, vsize);
+    test->read_size += 2 * vsize;
 }

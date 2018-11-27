@@ -1,7 +1,11 @@
 
 # default targets (tests)
 tests ?= src/popcnt.c src/popcnt_u4.c src/popcnt_a4.c \
-	src/stream_set.c src/stream_setz.c src/stream_copy.c \
+	src/stream_copy.c \
+	src/stream_setz_u32.c src/stream_setz_u64.c \
+	src/stream_setz_f32.c src/stream_setz_f64.c \
+	src/stream_set_u32.c src/stream_set_u64.c \
+	src/stream_set_f32.c src/stream_set_f64.c \
 	src/pchase.c src/sysbench_cpu.c src/sysbench_cpu_o1.c
 
 # default goal
@@ -10,11 +14,13 @@ tests ?= src/popcnt.c src/popcnt_u4.c src/popcnt_a4.c \
 
 # target architecture specifics
 ARCH ?= blend
+export ARCH
 CFLAGS_blend = -msse4.2 -mpopcnt
 CFLAGS_native = -march=native
 
 # optimization level
 OPTLEVEL ?= base
+export OPTLEVEL
 CFLAGS_noopt = -O0 $(CFLAGS_$(ARCH))
 CFLAGS_base = -O2 $(CFLAGS_$(ARCH))
 CFLAGS_fast = -Ofast $(CFLAGS_$(ARCH))
@@ -83,8 +89,11 @@ nuke:
 	rm -rf obj *.exe
 	git clean -fdn
 
+run-%:
+	$(addprefix ./, $(notdir $(*:.exe=.$(ARCH).$(OPTLEVEL).exe)))
+
 run: $(exes_c)
-	$(addsuffix ;, $(addprefix ./, $(notdir $(^:.exe=.$(ARCH).$(OPTLEVEL).exe))))
+	$(MAKE) $(addprefix run-,$(notdir $(exes_c)))
 
 # debugging
 print-%  : ; @echo $* = $($*)

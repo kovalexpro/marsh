@@ -25,7 +25,7 @@ static uint32_t popcnt_run(void)
 static uint32_t popcnt_init(void)
 {
     result = 0;
-    marsh_get_x(&popcnt_test);
+    marsh_get_x(&popcnt_test, sizeof(uint64_t));
 }
 
 

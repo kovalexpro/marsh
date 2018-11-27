@@ -34,10 +34,16 @@ static uint32_t pchase_init(void)
 
     uint64_t n = pchase_test.iterations;
     pchase_test.heap = marsh_alloc(n * sizeof(block_t));
+    pchase_test.read_size = n * sizeof(struct block *);
 
     block_t *blocks = (block_t*)pchase_test.heap;
-    for (int i = 0; i < (n - 1); i++)
+    for (int i = 0; i < (n - 1); i++) {
         blocks[i].next = &blocks[i + 1];
+        #ifndef PCHASE_TEST_SKIP_INIT_DATA
+        for (int j = 0; j < DATA_SIZE; j++)
+            blocks[i].data[j] = (uint8_t)((i >> (8 * j)) & 0xff);
+        #endif
+    }
     blocks[n - 1].next = 0;
 
     return 0;

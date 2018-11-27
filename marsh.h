@@ -5,10 +5,16 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define join(F,D) F##_##D
-#define template(F,D) join(F,D)
+#define joincat(F,D) F##_##D
+#define join(F,D) joincat(F,D)
+
+#define thisname join(MARSH_TEST_NAME, datatype)
+#define thisfunc(f) join(thisname, f)
+#define thistest thisfunc(test)
 
 enum {
+    MARSH_ALLOC_ALIGN = 16,
+    MARSH_ALLOC_STRIDE = 8,
     MARSH_WARMUP_RETRY = 1000,
     MARSH_RETRY = 1000000,
     MARSH_HEAP_SIZE = 128 * 1024 * 1024,
@@ -27,6 +33,8 @@ typedef clock_t marsh_time_t;
 
 /// Test desriptor.
 struct marsh_test {
+    uint64_t read_size;
+    uint64_t write_size;
     uint32_t iterations;
     const char* name;
     void* heap;
@@ -40,6 +48,8 @@ struct marsh_test {
 /// Macro for creating test descriptor structure.
 #define MARSH_TEST(test_name, test_run, test_init, test_verify, test_report) \
     struct marsh_test test_name##_test = { \
+        .read_size = 0, \
+        .write_size = 0, \
         .iterations = MARSH_ITERATIONS, \
         .name = #test_name, \
         .heap = 0, \
@@ -51,6 +61,8 @@ struct marsh_test {
     }; \
     struct marsh_test *test = &test_name##_test;
 
+#define THIS_MARSH_TEST(test_name, test_run, test_init, test_verify, test_report) \
+    MARSH_TEST(test_name, test_run, test_init, test_verify, test_report)
 
 void* marsh_alloc(uint32_t size);
 
@@ -65,6 +77,8 @@ double marsh_elapsed(marsh_time_t start, marsh_time_t stop);
 void marsh_report(struct marsh_test *test, uint32_t errors,
     double elapsed, uint32_t retries);
 
-void marsh_get_x(struct marsh_test *test);
+void marsh_get_r(struct marsh_test *test, uint32_t elem_size);
 
-void marsh_get_xy(struct marsh_test *test);
+void marsh_get_x(struct marsh_test *test, uint32_t elem_size);
+
+void marsh_get_xy(struct marsh_test *test, uint32_t elem_size);

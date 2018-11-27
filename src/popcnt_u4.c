@@ -30,7 +30,7 @@ static uint32_t popcnt_u4_run(void)
 static uint32_t popcnt_u4_init(void)
 {
     result = 0;
-    marsh_get_x(&popcnt_u4_test);
+    marsh_get_x(&popcnt_u4_test, sizeof(uint64_t));
 }
 
 

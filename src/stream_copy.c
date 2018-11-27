@@ -24,7 +24,8 @@ static uint32_t stream_copy_run(void)
 static uint32_t stream_copy_init(void)
 {
     result = 0;
-    marsh_get_xy(&stream_copy_test);
+    marsh_get_r(&stream_copy_test, sizeof(uint64_t));
+    marsh_get_x(&stream_copy_test, sizeof(uint64_t));
 }
 
 
