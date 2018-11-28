@@ -58,7 +58,7 @@ static void sysbench_cpu_o1_report(double elapsed, uint32_t retries)
 {
     uint32_t errors = result == sysbench_cpu_golden ? 0 : 1;
     uint32_t n = sysbench_cpu_o1_test.iterations;
-    printf("%s: errors=%u iterations=%d npi=%.3f mark=%.3f Mruns/s\n",
+    printf("%s: errors=%u iterations=%d npe=%.3f mark=%.3f Mruns/s\n",
         sysbench_cpu_o1_test.name, errors, n, elapsed * 1e9 / retries / n,
         result * retries / elapsed / 1e6 );
 }

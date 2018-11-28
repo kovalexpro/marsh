@@ -78,7 +78,7 @@ void marsh_report(struct marsh_test *test, uint32_t errors,
     double elapsed, uint32_t retries, double mark)
 {
     uint32_t n = test->iterations;
-    printf("%s: errors=%u iterations=%d npi=%.3f mark=%.3f\n",
+    printf("%s: errors=%u iterations=%d npe=%.3f mark=%.3f\n",
         test->name, errors, n, elapsed * 1e9 / retries / n, mark);
     printf("%s: data[r/w]=%.3f/%.3fKB bandwidth[r/w]=%.3f/%.3fGB/s\n",
         test->name,

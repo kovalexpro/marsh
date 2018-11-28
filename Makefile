@@ -30,3 +30,5 @@ default: run
 
 report:
 	@$(MAKE) -s -f Makefile.mk run tests="$(active_tests)" > marsh_report_raw.txt
+	@python marsh_report.py -i marsh_report_raw.txt > marsh_report.txt
+	@cat marsh_report.txt

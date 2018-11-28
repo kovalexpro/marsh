@@ -1,68 +1,103 @@
-popcnt_a4: test passed
-popcnt_a4: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-popcnt_a4: accum=2572948416 retry=1000/1000000 warmup=0.011s elapsed=7.818s
-popcnt_a4: errors=0 iterations=32768 npi=0.239 mark=33.530
-popcnt_a4: data[r/w]=262.144/0.000KB bandwidth[r/w]=33.530/0.000GB/s
-popcnt_u4: test passed
-popcnt_u4: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-popcnt_u4: accum=2572948416 retry=1000/1000000 warmup=0.011s elapsed=7.959s
-popcnt_u4: errors=0 iterations=32768 npi=0.243 mark=32.935
-popcnt_u4: data[r/w]=262.144/0.000KB bandwidth[r/w]=32.935/0.000GB/s
+stream_set_char: test passed
+stream_set_char: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_set_char: accum=32032000 retry=1000/1000000 warmup=0.001s elapsed=0.741s
+stream_set_char: errors=0 iterations=32768 npe=0.023 mark=44.201
+stream_set_char: data[r/w]=0.000/32.768KB bandwidth[r/w]=0.000/44.201GB/s
+stream_setz_char: test passed
+stream_setz_char: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_setz_char: accum=0 retry=1000/1000000 warmup=0.000s elapsed=0.878s
+stream_setz_char: errors=0 iterations=32768 npe=0.027 mark=37.334
+stream_setz_char: data[r/w]=0.000/32.768KB bandwidth[r/w]=0.000/37.334GB/s
+stream_copy_char: test passed
+stream_copy_char: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_copy_char: accum=0 retry=1000/1000000 warmup=0.001s elapsed=1.062s
+stream_copy_char: errors=0 iterations=32768 npe=0.032 mark=30.843
+stream_copy_char: data[r/w]=32.768/32.768KB bandwidth[r/w]=30.843/30.843GB/s
 stream_setz_uint32_t: test passed
-stream_setz_uint32_t: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-stream_setz_uint32_t: accum=0 retry=1000/1000000 warmup=0.012s elapsed=8.299s
-stream_setz_uint32_t: errors=0 iterations=32768 npi=0.253 mark=15.793
-stream_setz_uint32_t: data[r/w]=0.000/131.072KB bandwidth[r/w]=0.000/15.793GB/s
-stream_set_uint32_t: test passed
-stream_set_uint32_t: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-stream_set_uint32_t: accum=1916953536 retry=1000/1000000 warmup=0.008s elapsed=8.316s
-stream_set_uint32_t: errors=0 iterations=32768 npi=0.254 mark=15.761
-stream_set_uint32_t: data[r/w]=0.000/131.072KB bandwidth[r/w]=0.000/15.761GB/s
-stream_setz_float: test passed
-stream_setz_float: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-stream_setz_float: accum=0 retry=1000/1000000 warmup=0.008s elapsed=8.330s
-stream_setz_float: errors=0 iterations=32768 npi=0.254 mark=15.735
-stream_setz_float: data[r/w]=0.000/131.072KB bandwidth[r/w]=0.000/15.735GB/s
-stream_setz_uint64_t: test passed
-stream_setz_uint64_t: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-stream_setz_uint64_t: accum=0 retry=1000/1000000 warmup=0.009s elapsed=8.791s
-stream_setz_uint64_t: errors=0 iterations=32768 npi=0.268 mark=29.818
-stream_setz_uint64_t: data[r/w]=0.000/262.144KB bandwidth[r/w]=0.000/29.818GB/s
-stream_set_uint64_t: test passed
-stream_set_uint64_t: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-stream_set_uint64_t: accum=1916953536 retry=1000/1000000 warmup=0.012s elapsed=8.792s
-stream_set_uint64_t: errors=0 iterations=32768 npi=0.268 mark=29.815
-stream_set_uint64_t: data[r/w]=0.000/262.144KB bandwidth[r/w]=0.000/29.815GB/s
-stream_copy: test passed
-stream_copy: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-stream_copy: accum=0 retry=1000/1000000 warmup=0.012s elapsed=8.839s
-stream_copy: errors=0 iterations=32768 npi=0.270 mark=29.658
-stream_copy: data[r/w]=262.144/262.144KB bandwidth[r/w]=29.658/29.658GB/s
-stream_setz_double: test passed
-stream_setz_double: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-stream_setz_double: accum=0 retry=1000/1000000 warmup=0.016s elapsed=9.439s
-stream_setz_double: errors=0 iterations=32768 npi=0.288 mark=27.773
-stream_setz_double: data[r/w]=0.000/262.144KB bandwidth[r/w]=0.000/27.773GB/s
-sysbench_cpu_o1: test passed
-sysbench_cpu_o1: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-sysbench_cpu_o1: accum=167167000 retry=1000/1000000 warmup=0.015s elapsed=11.175s
-sysbench_cpu_o1: errors=0 iterations=1000 npi=11.175 mark=14.943 Mruns/s
-stream_set_double: test passed
-stream_set_double: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-stream_set_double: accum=3003000 retry=1000/1000000 warmup=0.016s elapsed=15.616s
-stream_set_double: errors=0 iterations=32768 npi=0.477 mark=16.787
-stream_set_double: data[r/w]=0.000/262.144KB bandwidth[r/w]=0.000/16.787GB/s
+stream_setz_uint32_t: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_setz_uint32_t: accum=0 retry=1000/1000000 warmup=0.004s elapsed=2.270s
+stream_setz_uint32_t: errors=0 iterations=32768 npe=0.069 mark=57.729
+stream_setz_uint32_t: data[r/w]=0.000/131.072KB bandwidth[r/w]=0.000/57.729GB/s
+stream_copy_float: test passed
+stream_copy_float: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_copy_float: accum=0 retry=1000/1000000 warmup=0.003s elapsed=2.505s
+stream_copy_float: errors=0 iterations=32768 npe=0.076 mark=52.334
+stream_copy_float: data[r/w]=131.072/131.072KB bandwidth[r/w]=52.334/52.334GB/s
 stream_set_float: test passed
-stream_set_float: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-stream_set_float: accum=3003000 retry=1000/1000000 warmup=0.017s elapsed=15.616s
-stream_set_float: errors=0 iterations=32768 npi=0.477 mark=8.393
-stream_set_float: data[r/w]=0.000/131.072KB bandwidth[r/w]=0.000/8.393GB/s
+stream_set_float: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_set_float: accum=3003000 retry=1000/1000000 warmup=0.004s elapsed=2.798s
+stream_set_float: errors=0 iterations=32768 npe=0.085 mark=46.838
+stream_set_float: data[r/w]=0.000/131.072KB bandwidth[r/w]=0.000/46.838GB/s
+stream_setz_float: test passed
+stream_setz_float: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_setz_float: accum=0 retry=1000/1000000 warmup=0.004s elapsed=2.992s
+stream_setz_float: errors=0 iterations=32768 npe=0.091 mark=43.802
+stream_setz_float: data[r/w]=0.000/131.072KB bandwidth[r/w]=0.000/43.802GB/s
+stream_set_uint32_t: test passed
+stream_set_uint32_t: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_set_uint32_t: accum=1916953536 retry=1000/1000000 warmup=0.009s elapsed=3.175s
+stream_set_uint32_t: errors=0 iterations=32768 npe=0.097 mark=41.289
+stream_set_uint32_t: data[r/w]=0.000/131.072KB bandwidth[r/w]=0.000/41.289GB/s
+stream_setz_uint64_t: test passed
+stream_setz_uint64_t: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_setz_uint64_t: accum=0 retry=1000/1000000 warmup=0.010s elapsed=3.779s
+stream_setz_uint64_t: errors=0 iterations=32768 npe=0.115 mark=69.364
+stream_setz_uint64_t: data[r/w]=0.000/262.144KB bandwidth[r/w]=0.000/69.364GB/s
+stream_copy_uint32_t: test passed
+stream_copy_uint32_t: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_copy_uint32_t: accum=0 retry=1000/1000000 warmup=0.007s elapsed=4.253s
+stream_copy_uint32_t: errors=0 iterations=32768 npe=0.130 mark=30.821
+stream_copy_uint32_t: data[r/w]=131.072/131.072KB bandwidth[r/w]=30.821/30.821GB/s
+stream_copy_uint64_t: test passed
+stream_copy_uint64_t: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_copy_uint64_t: accum=0 retry=1000/1000000 warmup=0.005s elapsed=4.954s
+stream_copy_uint64_t: errors=0 iterations=32768 npe=0.151 mark=52.912
+stream_copy_uint64_t: data[r/w]=262.144/262.144KB bandwidth[r/w]=52.912/52.912GB/s
+stream_copy: test passed
+stream_copy: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_copy: accum=0 retry=1000/1000000 warmup=0.015s elapsed=5.009s
+stream_copy: errors=0 iterations=32768 npe=0.153 mark=52.332
+stream_copy: data[r/w]=262.144/262.144KB bandwidth[r/w]=52.332/52.332GB/s
+stream_setz_double: test passed
+stream_setz_double: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_setz_double: accum=0 retry=1000/1000000 warmup=0.009s elapsed=5.382s
+stream_setz_double: errors=0 iterations=32768 npe=0.164 mark=48.705
+stream_setz_double: data[r/w]=0.000/262.144KB bandwidth[r/w]=0.000/48.705GB/s
+stream_set_double: test passed
+stream_set_double: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_set_double: accum=3003000 retry=1000/1000000 warmup=0.011s elapsed=5.404s
+stream_set_double: errors=0 iterations=32768 npe=0.165 mark=48.506
+stream_set_double: data[r/w]=0.000/262.144KB bandwidth[r/w]=0.000/48.506GB/s
+stream_copy_double: test passed
+stream_copy_double: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_copy_double: accum=0 retry=1000/1000000 warmup=0.012s elapsed=5.787s
+stream_copy_double: errors=0 iterations=32768 npe=0.177 mark=45.300
+stream_copy_double: data[r/w]=262.144/262.144KB bandwidth[r/w]=45.300/45.300GB/s
+stream_set_uint64_t: test passed
+stream_set_uint64_t: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+stream_set_uint64_t: accum=1916953536 retry=1000/1000000 warmup=0.018s elapsed=6.963s
+stream_set_uint64_t: errors=0 iterations=32768 npe=0.212 mark=37.649
+stream_set_uint64_t: data[r/w]=0.000/262.144KB bandwidth[r/w]=0.000/37.649GB/s
+popcnt_a4: test passed
+popcnt_a4: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+popcnt_a4: accum=2572948416 retry=1000/1000000 warmup=0.008s elapsed=7.910s
+popcnt_a4: errors=0 iterations=32768 npe=0.241 mark=33.142
+popcnt_a4: data[r/w]=262.144/0.000KB bandwidth[r/w]=33.142/0.000GB/s
+popcnt_u4: test passed
+popcnt_u4: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+popcnt_u4: accum=2572948416 retry=1000/1000000 warmup=0.012s elapsed=8.087s
+popcnt_u4: errors=0 iterations=32768 npe=0.247 mark=32.416
+popcnt_u4: data[r/w]=262.144/0.000KB bandwidth[r/w]=32.416/0.000GB/s
+sysbench_cpu_o1: test passed
+sysbench_cpu_o1: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+sysbench_cpu_o1: accum=167167000 retry=1000/1000000 warmup=0.013s elapsed=11.107s
+sysbench_cpu_o1: errors=0 iterations=1000 npe=11.107 mark=15.036 Mruns/s
 sysbench_cpu: test passed
-sysbench_cpu: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-sysbench_cpu: accum=167167000 retry=1000/1000000 warmup=0.030s elapsed=27.777s
-sysbench_cpu: errors=0 iterations=1000 npi=27.777 mark=6.012 Mruns/s
+sysbench_cpu: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+sysbench_cpu: accum=167167000 retry=1000/1000000 warmup=0.039s elapsed=29.210s
+sysbench_cpu: errors=0 iterations=1000 npe=29.210 mark=5.717 Mruns/s
 pchase: test passed
-pchase: marsh_config=gcc.blend.base 39e9b29-dirty heads/master Tue, 27 Nov 2018 23:40:56 +0000
-pchase: accum=1001000 retry=1000/1000000 warmup=0.035s elapsed=32.423s
-pchase: errors=0 iterations=32768 npi=0.989 mark=8.085
-pchase: data[r/w]=262.144/0.000KB bandwidth[r/w]=8.085/0.000GB/s
+pchase: marsh_config=gcc.blend.fast fd33e68-dirty heads/master Wed, 28 Nov 2018 00:17:27 +0000
+pchase: accum=1001000 retry=1000/1000000 warmup=0.119s elapsed=34.030s
+pchase: errors=0 iterations=32768 npe=1.039 mark=7.703
+pchase: data[r/w]=262.144/0.000KB bandwidth[r/w]=7.703/0.000GB/s
