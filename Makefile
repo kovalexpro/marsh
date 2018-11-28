@@ -32,3 +32,19 @@ report: nuke
 	@$(MAKE) -s -f Makefile.mk run tests="$(active_tests)" > marsh_report_raw.txt
 	@python marsh_report.py -i marsh_report_raw.txt > marsh_report.txt
 	@cat marsh_report.txt
+
+summary:
+	@rm -f marsh_summary.txt
+	@touch marsh_summary.txt
+	@$(MAKE) -s -f Makefile.mk run tests="$(active_tests)" > marsh_report_raw.txt
+	@python marsh_report.py -i marsh_report_raw.txt >> marsh_summary.txt
+	@echo ------------------------------------------------------------- >> marsh_summary.txt
+	@$(MAKE) -s -f Makefile.mk run tests="$(active_tests)" OPTLEVEL=fast > marsh_report_raw.txt
+	@python marsh_report.py -i marsh_report_raw.txt >> marsh_summary.txt
+	@echo ------------------------------------------------------------- >> marsh_summary.txt
+	@$(MAKE) -s -f Makefile.mk run tests="$(active_tests)" ARCH=native > marsh_report_raw.txt
+	@python marsh_report.py -i marsh_report_raw.txt >> marsh_summary.txt
+	@echo ------------------------------------------------------------- >> marsh_summary.txt
+	@$(MAKE) -s -f Makefile.mk run tests="$(active_tests)" ARCH=native OPTLEVEL=fast > marsh_report_raw.txt
+	@python marsh_report.py -i marsh_report_raw.txt >> marsh_summary.txt
+	@echo ------------------------------------------------------------- >> marsh_summary.txt

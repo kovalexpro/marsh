@@ -1,3 +1,7 @@
+marsh_report.txt
+marsh_report_raw.txt
+obj/
+
 # Prerequisites
 *.d
 *.Td
