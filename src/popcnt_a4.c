@@ -4,7 +4,7 @@
 
 extern struct marsh_test popcnt_a4_test;
 
-const static uint32_t popcnt_a4_golden = 122941;
+const static uint32_t popcnt_a4_golden = 151477;
 
 static uint32_t result;
 
