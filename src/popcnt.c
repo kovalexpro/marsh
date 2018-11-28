@@ -4,7 +4,7 @@
 
 extern struct marsh_test popcnt_test;
 
-const static uint32_t popcnt_golden = 0x1f018;
+const static uint32_t popcnt_golden = 122941;
 
 static uint32_t result;
 
@@ -32,6 +32,7 @@ static uint32_t popcnt_init(void)
 /// Validates test's result.
 static uint32_t popcnt_verify(void)
 {
+    printf("new gold = %u\n", result);
     return result == popcnt_golden ? 0 : 1;
 }
 

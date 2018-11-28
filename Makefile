@@ -1,5 +1,5 @@
 stream_tests := $(wildcard src/stream/stream_*.c)
-people_tests := $(wildcard src/popcnt_*.c) src/pchase.c
+people_tests := $(wildcard src/popcnt*.c) src/pchase.c
 sysbench_tests := $(wildcard src/sysbench/*.c)
 
 active_tests := $(stream_tests) $(people_tests) $(sysbench_tests)
@@ -14,7 +14,7 @@ export BUILD_DATE
 build-%:
 	$(MAKE) -f Makefile.mk tests="$($*_tests)"
 
-buid:
+build:
 	$(MAKE) -f Makefile.mk tests="$(active_tests)"
 
 run-%:
@@ -28,7 +28,7 @@ nuke:
 
 default: run
 
-report:
+report: nuke
 	@$(MAKE) -s -f Makefile.mk run tests="$(active_tests)" > marsh_report_raw.txt
 	@python marsh_report.py -i marsh_report_raw.txt > marsh_report.txt
 	@cat marsh_report.txt

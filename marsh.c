@@ -46,7 +46,7 @@ void marsh_random_data(void* p, uint32_t size)
 
     srand(size);
     for (int i = 0; i < size / sizeof(uint32_t); i++) {
-        *pdw++ = rand();
+        *pdw++ = rand() & 0x7f7fffff;
     }
 
     uint8_t* pb = (uint8_t*)pdw;
