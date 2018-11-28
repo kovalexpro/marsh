@@ -45,7 +45,8 @@ static uint32_t stream_copy_verify(void)
 /// Reports test's results.
 static void stream_copy_report(double elapsed, uint32_t retries)
 {
-    marsh_report(&stream_copy_test, result, elapsed, retries);
+    double mark = test->write_size * retries / elapsed / 1e9;
+    marsh_report(&stream_copy_test, result, elapsed, retries, mark);
 }
 
 MARSH_TEST(stream_copy, stream_copy_run, stream_copy_init,

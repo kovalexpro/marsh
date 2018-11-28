@@ -61,7 +61,8 @@ static uint32_t popcnt_a4_verify(void)
 static void popcnt_a4_report(double elapsed, uint32_t retries)
 {
     uint32_t errors = result == popcnt_a4_golden ? 0 : 1;
-    marsh_report(&popcnt_a4_test, errors, elapsed, retries);
+    double mark = popcnt_a4_test.read_size * retries / elapsed / 1e9;
+    marsh_report(&popcnt_a4_test, errors, elapsed, retries, mark);
 }
 
 MARSH_TEST(popcnt_a4, popcnt_a4_run, popcnt_a4_init,

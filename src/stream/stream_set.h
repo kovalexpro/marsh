@@ -49,7 +49,8 @@ static uint32_t thisfunc(verify)(void)
 /// Reports test's results.
 static void thisfunc(report)(double elapsed, uint32_t retries)
 {
-    marsh_report(&thistest, result, elapsed, retries);
+    double mark = test->write_size * retries / elapsed / 1e9;
+    marsh_report(&thistest, result, elapsed, retries, mark);
 }
 
 THIS_MARSH_TEST(thisname, thisfunc(run),

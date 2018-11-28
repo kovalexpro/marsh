@@ -25,6 +25,22 @@ enum {
 #define MARSH_ITERATIONS (MARSH_L2C_SIZE / sizeof(uint64_t))
 #endif
 
+#ifndef BUILD_VARIANT
+#define BUILD_VARIANT "unspecified"
+#endif
+
+#ifndef BUILD_REV
+#define BUILD_REV "unspecified"
+#endif
+
+#ifndef BUILD_BRANCH
+#define BUILD_BRANCH "unspecified"
+#endif
+
+#ifndef BUILD_DATE
+#define BUILD_DATE __TIMESTAMP__
+#endif
+
 /// Current test.
 extern struct marsh_test *test;
 
@@ -75,7 +91,7 @@ marsh_time_t marsh_time();
 double marsh_elapsed(marsh_time_t start, marsh_time_t stop);
 
 void marsh_report(struct marsh_test *test, uint32_t errors,
-    double elapsed, uint32_t retries);
+    double elapsed, uint32_t retries, double mark);
 
 void marsh_get_r(struct marsh_test *test, uint32_t elem_size);
 

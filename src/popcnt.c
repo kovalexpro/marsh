@@ -40,7 +40,8 @@ static uint32_t popcnt_verify(void)
 static void popcnt_report(double elapsed, uint32_t retries)
 {
     uint32_t errors = result == popcnt_golden ? 0 : 1;
-    marsh_report(&popcnt_test, errors, elapsed, retries);
+    double mark = test->read_size * retries / elapsed / 1e9;
+    marsh_report(&popcnt_test, errors, elapsed, retries, mark);
 }
 
 MARSH_TEST(popcnt, popcnt_run, popcnt_init, popcnt_verify, popcnt_report);

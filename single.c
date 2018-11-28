@@ -36,9 +36,15 @@ int main(int argc, char** argv)
         printf("%s: test passed\n", test->name);
     }
 
+    // test config
+    printf("%s: marsh_config=%s %s %s %s\n", test->name,
+        BUILD_VARIANT, BUILD_REV, BUILD_BRANCH, BUILD_DATE);
+
     // test stat
     printf("%s: accum=%u retry=%d/%d warmup=%.3fs elapsed=%.3fs\n",
         test->name, accumulated, MARSH_WARMUP_RETRY,
         MARSH_RETRY, warmup, elapsed);
     test->report(elapsed, MARSH_RETRY);
+
+    return err;
 }

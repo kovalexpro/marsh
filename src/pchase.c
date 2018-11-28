@@ -65,7 +65,8 @@ static void pchase_report(double elapsed, uint32_t retries)
     uint64_t n = pchase_test.iterations;
     block_t *blocks = (block_t*)pchase_test.heap;
     uint32_t errors = (result == &blocks[n - 1]) ? 0 : 1;
-    marsh_report(&pchase_test, errors, elapsed, retries);
+    double mark = test->read_size * retries / elapsed / 1e9;
+    marsh_report(&pchase_test, errors, elapsed, retries, mark);
 }
 
 MARSH_TEST(pchase, pchase_run, pchase_init, pchase_verify, pchase_report);

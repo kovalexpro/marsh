@@ -75,15 +75,15 @@ double marsh_elapsed(marsh_time_t start, marsh_time_t stop)
 
 /// Standard report routine.
 void marsh_report(struct marsh_test *test, uint32_t errors,
-    double elapsed, uint32_t retries)
+    double elapsed, uint32_t retries, double mark)
 {
     uint32_t n = test->iterations;
-    printf("%s: errors=%u iterations=%d, data[r/w]=%.3f/%.3f KB,"
-           " npi=%.3f bandwidth[r/w]: %.3f/%.3f GB/s\n",
-        test->name, errors, n,
+    printf("%s: errors=%u iterations=%d npi=%.3f mark=%.3f\n",
+        test->name, errors, n, elapsed * 1e9 / retries / n, mark);
+    printf("%s: data[r/w]=%.3f/%.3fKB bandwidth[r/w]=%.3f/%.3fGB/s\n",
+        test->name,
         test->read_size / 1e3,
         test->write_size / 1e3,
-        elapsed * 1e9 / retries / n,
         test->read_size * retries / elapsed / 1e9,
         test->write_size * retries / elapsed / 1e9
     );
