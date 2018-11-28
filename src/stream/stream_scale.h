@@ -18,8 +18,8 @@ static uint32_t result;
 static uint32_t thisfunc(run)(void)
 {
     uint32_t n = thistest.iterations;
-    datatype *to_buf = (datatype*)thistest.heap ;
-    datatype *from_buf = (datatype*)thistest.heap + n;
+    datatype *to_buf = (datatype*)thistest.r;
+    datatype *from_buf = (datatype*)thistest.x;
     for(int i = 0; i < n; i++) {
         to_buf[i] = from_buf[i] * STREAM_SET_SCALE;
     }
@@ -41,8 +41,8 @@ static uint32_t thisfunc(verify)(void)
 {
     result = 0;
     uint32_t n = thistest.iterations;
-    datatype *to_buf = (datatype*)thistest.heap ;
-    datatype *from_buf = (datatype*)thistest.heap + n;
+    datatype *to_buf = (datatype*)thistest.r;
+    datatype *from_buf = (datatype*)thistest.x;
     for(int i = 0; i < thistest.iterations; i++)
         result += (to_buf[i] == from_buf[i] * STREAM_SET_SCALE) ? 0 : 1;
     return result;

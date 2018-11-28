@@ -13,9 +13,9 @@ static uint32_t result;
 static uint32_t thisfunc(run)(void)
 {
     uint32_t n = thistest.iterations;
-    datatype *r = (datatype*)thistest.heap ;
-    datatype *x = (datatype*)thistest.heap + n;
-    datatype *y = (datatype*)thistest.heap + 2*n;
+    datatype *r = (datatype*)thistest.r;
+    datatype *x = (datatype*)thistest.x;
+    datatype *y = (datatype*)thistest.y;
     for(int i = 0; i < n; i++) {
         r[i] = x[i] * y[i];
     }
@@ -37,9 +37,9 @@ static uint32_t thisfunc(verify)(void)
 {
     result = 0;
     uint32_t n = thistest.iterations;
-    datatype *r = (datatype*)thistest.heap ;
-    datatype *x = (datatype*)thistest.heap + n;
-    datatype *y = (datatype*)thistest.heap + 2*n;
+    datatype *r = (datatype*)thistest.r;
+    datatype *x = (datatype*)thistest.x;
+    datatype *y = (datatype*)thistest.y;
     for(int i = 0; i < thistest.iterations; i++) {
         volatile datatype gold = x[i] * y[i];
         result += (r[i] == gold) ? 0 : 1;

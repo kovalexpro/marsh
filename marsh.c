@@ -93,8 +93,8 @@ void marsh_report(struct marsh_test *test, uint32_t errors,
 /// Allocates and initializes resulting vector.
 void marsh_get_r(struct marsh_test *test, uint32_t elem_size)
 {
-    test->heap = marsh_alloc(test->iterations * elem_size);
-    marsh_random_data(test->heap, test->iterations);
+    test->r = marsh_alloc(test->iterations * elem_size);
+    marsh_random_data(test->r, test->iterations);
     test->write_size += test->iterations * elem_size;
 }
 
@@ -102,8 +102,8 @@ void marsh_get_r(struct marsh_test *test, uint32_t elem_size)
 /// Allocates and initializes vector.
 void marsh_get_x(struct marsh_test *test, uint32_t elem_size)
 {
-    test->heap = marsh_alloc(test->iterations * elem_size);
-    marsh_random_data(test->heap, test->iterations);
+    test->x = marsh_alloc(test->iterations * elem_size);
+    marsh_random_data(test->x, test->iterations);
     test->read_size += test->iterations * elem_size;
 }
 
@@ -112,10 +112,25 @@ void marsh_get_x(struct marsh_test *test, uint32_t elem_size)
 void marsh_get_xy(struct marsh_test *test, uint32_t elem_size)
 {
     uint32_t vsize = test->iterations * elem_size;
-    test->heap = marsh_alloc(vsize);
+    test->x = marsh_alloc(vsize);
     void* misalign = marsh_alloc(MARSH_ALLOC_STRIDE * elem_size);
-    void* second = marsh_alloc(vsize);
-    marsh_random_data(test->heap, vsize);
-    marsh_random_data(second, vsize);
+    test->y = marsh_alloc(vsize);
+    marsh_random_data(test->x, vsize);
+    marsh_random_data(test->y, vsize);
     test->read_size += 2 * vsize;
+}
+
+/// Allocates and initializes 3 vectors
+void marsh_get_xyz(struct marsh_test *test, uint32_t elem_size)
+{
+    uint32_t vsize = test->iterations * elem_size;
+    test->x = marsh_alloc(vsize);
+    void* misalign = marsh_alloc(MARSH_ALLOC_STRIDE * elem_size);
+    test->y = marsh_alloc(vsize);
+    void* misalign2 = marsh_alloc(MARSH_ALLOC_STRIDE * elem_size);
+    test->z = marsh_alloc(vsize);
+    marsh_random_data(test->x, vsize);
+    marsh_random_data(test->y, vsize);
+    marsh_random_data(test->z, vsize);
+    test->read_size += 3 * vsize;
 }

@@ -14,7 +14,8 @@ git clone https://github.com/kovalexpro/marsh.git
 ```
 
 Build relies on GNU's Make, GCC C compiler and binutils visible in default shell.
-Reporting script is written in Python 2.7 syntax.
+Reporting script is written in Python 2.7 syntax. Kernels are written in C though
+maybe not very portable, however should work on most modern platforms.
 
 By default, MARSH is not requiring that much system resources except for processor.
 Memory footprint should be around a megabyte. It's possible to run multiple kernels

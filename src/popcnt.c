@@ -12,7 +12,7 @@ static uint32_t result;
 static uint32_t popcnt_run(void)
 {
     uint64_t cnt = 0;
-    uint64_t *buffer = (uint64_t*)popcnt_test.heap;
+    uint64_t *buffer = (uint64_t*)popcnt_test.x;
     for(int i = 0; i < popcnt_test.iterations; i++) {
         cnt += __builtin_popcountll(buffer[i]);
     }

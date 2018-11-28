@@ -5,10 +5,6 @@
 #include <stdint.h>
 #include "marsh.h"
 
-#ifndef STREAM_SET_FILLER
-#define STREAM_SET_FILLER 0x00
-#endif
-
 extern struct marsh_test thistest;
 
 static uint32_t result;
@@ -16,12 +12,15 @@ static uint32_t result;
 /// Runs test.
 static uint32_t thisfunc(run)(void)
 {
-    datatype *buffer = (datatype*)thistest.r;
     uint32_t n = thistest.iterations;
+    datatype *r = (datatype*)thistest.r;
+    datatype *x = (datatype*)thistest.x;
+    datatype *y = (datatype*)thistest.y;
+    datatype *c = (datatype*)thistest.z;
     for(int i = 0; i < n; i++) {
-        buffer[i] = STREAM_SET_FILLER;
+        r[i] = x[i] * c[i] + y[i];
     }
-    return (uint32_t)buffer[0];
+    return (uint32_t)r[n-1];
 }
 
 
@@ -30,6 +29,7 @@ static uint32_t thisfunc(init)(void)
 {
     result = 0;
     marsh_get_r(&thistest, sizeof(datatype));
+    marsh_get_xyz(&thistest, sizeof(datatype));
 }
 
 
@@ -38,10 +38,14 @@ static uint32_t thisfunc(verify)(void)
 {
     result = 0;
     uint32_t n = thistest.iterations;
-    datatype *buffer = (datatype*)thistest.r;
-    volatile datatype gold = STREAM_SET_FILLER;
-    for(int i = 0; i < n; i++)
-        result += (buffer[i] == gold) ? 0 : 1;
+    datatype *r = (datatype*)thistest.r;
+    datatype *x = (datatype*)thistest.x;
+    datatype *y = (datatype*)thistest.y;
+    datatype *c = (datatype*)thistest.z;
+    for(int i = 0; i < thistest.iterations; i++) {
+        volatile datatype gold = x[i] * c[i] + y[i];
+        result += (r[i] == gold) ? 0 : 1;
+    }
     return result;
 }
 

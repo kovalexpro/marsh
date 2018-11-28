@@ -54,6 +54,7 @@ struct marsh_test {
     uint32_t iterations;
     const char* name;
     void* heap;
+    void *r, *x, *y, *z;
     void* private;
     uint32_t (*run)(void);
     uint32_t (*init)(void);
@@ -98,3 +99,5 @@ void marsh_get_r(struct marsh_test *test, uint32_t elem_size);
 void marsh_get_x(struct marsh_test *test, uint32_t elem_size);
 
 void marsh_get_xy(struct marsh_test *test, uint32_t elem_size);
+
+void marsh_get_xyz(struct marsh_test *test, uint32_t elem_size);

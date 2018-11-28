@@ -19,7 +19,7 @@ static block_t* result;
 /// Runs test.
 static uint32_t pchase_run(void)
 {
-    block_t *p = (block_t*)pchase_test.heap;
+    block_t *p = (block_t*)pchase_test.x;
     while (p->next)
         p = p->next;
     result = p;
@@ -33,10 +33,10 @@ static uint32_t pchase_init(void)
     result = 0;
 
     uint64_t n = pchase_test.iterations;
-    pchase_test.heap = marsh_alloc(n * sizeof(block_t));
+    pchase_test.x = marsh_alloc(n * sizeof(block_t));
     pchase_test.read_size = n * sizeof(struct block *);
 
-    block_t *blocks = (block_t*)pchase_test.heap;
+    block_t *blocks = (block_t*)pchase_test.x;
     for (int i = 0; i < (n - 1); i++) {
         blocks[i].next = &blocks[i + 1];
         #ifndef PCHASE_TEST_SKIP_INIT_DATA
@@ -54,7 +54,7 @@ static uint32_t pchase_init(void)
 static uint32_t pchase_verify(void)
 {
     uint64_t n = pchase_test.iterations;
-    block_t *blocks = (block_t*)pchase_test.heap;
+    block_t *blocks = (block_t*)pchase_test.x;
     return result == &blocks[n - 1] ? 0 : 1;
 }
 
@@ -63,7 +63,7 @@ static uint32_t pchase_verify(void)
 static void pchase_report(double elapsed, uint32_t retries)
 {
     uint64_t n = pchase_test.iterations;
-    block_t *blocks = (block_t*)pchase_test.heap;
+    block_t *blocks = (block_t*)pchase_test.x;
     uint32_t errors = (result == &blocks[n - 1]) ? 0 : 1;
     double mark = test->read_size * retries / elapsed / 1e9;
     marsh_report(&pchase_test, errors, elapsed, retries, mark);

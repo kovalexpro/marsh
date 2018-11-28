@@ -11,7 +11,7 @@ static uint32_t result;
 /// Runs test.
 static uint32_t popcnt_u4_run(void)
 {
-    uint64_t *buffer = (uint64_t*)popcnt_u4_test.heap;
+    uint64_t *buffer = (uint64_t*)popcnt_u4_test.x;
     uint64_t cnt0, cnt1, cnt2, cnt3;
     cnt0 = cnt1 = cnt2 = cnt3 = 0;
     for(size_t i = 0; i < popcnt_u4_test.iterations; i+=4) {
