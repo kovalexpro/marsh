@@ -57,8 +57,9 @@ class MarshTestReport(object):
 
     def __str__(self):
         try:
-            return '%s %s %s %.3f %.3f' % (
-                self.name, str(self.passed), self.variant, self.npe, self.mark
+            return '%s %s %s %.3f %.3f %.3f' % (
+                self.name, str(self.passed), self.variant,
+                self.npe, self.mark, self.elapsed
             )
         except:
             print 'ERROR: %s' % self.name
@@ -81,7 +82,7 @@ class MarshReport(object):
     def __str__(self):
         rows = [str(self.test_reports[k]).split() for k in sorted(self.test_reports)]
         rows = [row for row in rows if row]
-        header = ['name', 'status', 'variant', 'npe', 'mark']
+        header = ['name', 'status', 'variant', 'npe', 'mark', 'elapsed']
         if self.freq:
             header.append('cpe')
             rows = [row + ['%.3f' % (float(row[3]) * self.freq)] for row in rows]

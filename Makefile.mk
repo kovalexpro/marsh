@@ -49,6 +49,9 @@ OUTDIR := $(OBJDIR)/$(ARCH)_$(OPTLEVEL)
 $(OUTDIR):
 	mkdir -p $@
 
+executables:
+	mkdir $@
+
 # test driver
 DRIVER ?= single.c
 $(OUTDIR)/$(DRIVER).o: $(DRIVER) $(OUTDIR)/$(DRIVER).d Makefile | $(OUTDIR)
@@ -75,10 +78,10 @@ $(objs_c): $(OUTDIR)/%.o : %.c $(OUTDIR)/%.d $(MORE_DEPS) | $(OUTDIR)
 	$(CC) -c $(CFLAGS) $(CFLAGS_OPT) $< -o $@
 	@mv $(OUTDIR)/$*.Td $(OUTDIR)/$*.d && touch $@
 
-$(exes_c): $(OUTDIR)/%.exe : $(OUTDIR)/%.o $(MORE_DEPS) | $(OUTDIR)
+$(exes_c): $(OUTDIR)/%.exe : $(OUTDIR)/%.o $(MORE_DEPS) | $(OUTDIR) executables
 	$(LD) -o $@ $(filter %.o,$^) $(LDFLAGS)
-	cp -f $@ $(notdir $(@:.exe=.$(ARCH).$(OPTLEVEL).exe))
 	$(OD) -d $@ >  $@.listing
+	cp -f $@ executables/$(notdir $(@:.exe=.$(ARCH).$(OPTLEVEL).exe))
 
 default: $(exes_c)
 
@@ -89,11 +92,11 @@ clobber: clean
 	rm -rf $(OUTDIR) *.$(ARCH).$(OPTLEVEL).exe
 
 nuke:
-	rm -rf obj *.exe
+	rm -rf obj executables
 	git clean -fdn
 
 run-%:
-	$(addprefix ./, $(notdir $(*:.exe=.$(ARCH).$(OPTLEVEL).exe)))
+	$(addprefix ./executables/, $(notdir $(*:.exe=.$(ARCH).$(OPTLEVEL).exe)))
 
 run: $(exes_c)
 	$(MAKE) -f Makefile.mk $(addprefix run-,$(notdir $(exes_c))) tests="$(tests)"

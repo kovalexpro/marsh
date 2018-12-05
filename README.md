@@ -13,13 +13,14 @@ Clone sources:
 git clone https://github.com/kovalexpro/marsh.git
 ```
 
-Build relies on GNU's Make, GCC C compiler and binutils visible in default shell.
-Reporting script is written in Python 2.7 syntax. Kernels are written in C though
-maybe not very portable, however should work on most modern platforms.
+Build relies on GNU's Make, GCC C compiler and binutils visible in shell.
+Reporting script is written in Python 2.7 syntax. Kernels are written in C
+though maybe not very portable, however should work on most modern platforms.
 
-By default, MARSH is not requiring that much system resources except for processor.
-Memory footprint should be around a megabyte. It's possible to run multiple kernels
-in parallel - just add ```-j``` option to make's parameters (see below).
+By default, MARSH is not requiring that much system resources except for
+processor power. Memory footprint should be around a megabyte.
+It's possible to run multiple kernels in parallel - just add ```-j```
+option to make's parameters (see below).
 
 Reference run:
 
@@ -68,15 +69,15 @@ reports suitable for further analysis (like exporting to database or using
 in spreadsheets).
 
 For a single report for quick review (show results on screen and saves
-them to marsh_report.txt as well):
+them to `marsh_report.txt` as well):
 
 ```console
 make report -j
 make report -j OPTLEVEL=fast ARCH=native
 ```
 
-For performance summary (saves results into marsh_summary.txt)
-Don't supply ARCH and/or OPTLEVEL parameters - this time they're ignored:
+For performance summary (saves results into `marsh_summary.txt`)
+Don't supply `ARCH` and/or `OPTLEVEL` parameters - this time they're ignored:
 
 ```console
 make summary -j
